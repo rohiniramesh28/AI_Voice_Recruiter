@@ -1,58 +1,66 @@
 'use client';
 
-import React, { useState } from 'react';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { InterviewType as InterviewTypes } from '@/services/Constants';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+} from "@/components/ui/select";
+import { InterviewType } from "@/services/Constants";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
-function FormContainer({ onHandleInputChange, goToNext }) {
-  const [selectedInterviewTypes, setSelectedInterviewTypes] = useState([]);
 
-  // Toggle interview type selection and update parent
-  const toggleInterviewType = (type) => {
-    const updatedTypes = selectedInterviewTypes.includes(type)
-      ? selectedInterviewTypes.filter((t) => t !== type)
-      : [...selectedInterviewTypes, type];
+function FormContainer({ onHandleInputChange, GoToNext }) {
+  const [interviewType, setInterviewType] = useState([]);
 
-    setSelectedInterviewTypes(updatedTypes);
-    onHandleInputChange('type', updatedTypes); // ✅ No useEffect needed
+  useEffect(() => {
+    if (interviewType) {
+      onHandleInputChange("type", interviewType);
+    }
+  }, [interviewType]);
+
+  const AddInterviewType = (type) => {
+    const data = interviewType.includes(type);
+    if (!data) {
+      setInterviewType((prev) => [...prev, type]);
+    } else {
+      const result = interviewType.filter((item) => item != type);
+      setInterviewType(result);
+    }
   };
 
   return (
     <div className="p-5 bg-white rounded-xl">
-      {/* Job Position */}
       <div>
         <h2 className="text-sm font-medium">Job Position</h2>
         <Input
           placeholder="e.g. Full Stack Developer"
           className="mt-2"
-          onChange={(e) => onHandleInputChange('jobPosition', e.target.value)}
+          onChange={(event) => onHandleInputChange("job", event.target.value)}
         />
       </div>
 
-      {/* Job Description */}
       <div className="mt-5">
         <h2 className="text-sm font-medium">Job Description</h2>
         <Textarea
-          placeholder="Enter detailed job description."
+          placeholder="Enter details job description"
           className="h-[200px] mt-2"
-          onChange={(e) => onHandleInputChange('jobDescription', e.target.value)}
+          onChange={(event) =>
+            onHandleInputChange("jobDescription", event.target.value)
+          }
         />
       </div>
 
-      {/* Interview Duration */}
       <div className="mt-5">
         <h2 className="text-sm font-medium">Interview Duration</h2>
-        <Select onValueChange={(value) => onHandleInputChange('duration', value)}>
+        <Select
+          onValueChange={(value) => onHandleInputChange("duration", value)}
+        >
           <SelectTrigger className="w-full mt-2">
             <SelectValue placeholder="Select Duration" />
           </SelectTrigger>
@@ -66,41 +74,30 @@ function FormContainer({ onHandleInputChange, goToNext }) {
         </Select>
       </div>
 
-      {/* Interview Type */}
       <div className="mt-5">
         <h2 className="text-sm font-medium">Interview Type</h2>
-        <div className="mt-3 flex gap-3 flex-wrap">
-          {InterviewTypes.map((type, index) => (
+        <div className="flex gap-3 flex-wrap mt-2">
+          {InterviewType.map((type, index) => (
             <div
               key={index}
-              role="button"
-              tabIndex={0}
-              onClick={() => toggleInterviewType(type.title)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  toggleInterviewType(type.title);
-                }
-              }}
-              className={`flex items-center cursor-pointer gap-2 p-2 px-3 border border-gray-300 rounded-2xl
-                hover:bg-second
-                ${
-                  selectedInterviewTypes.includes(type.title)
-                    ? 'bg-blue-100 text-primary'
-                    : 'bg-white'
-                }`}
+              className={`flex items-center cursor-pointer gap-2 p-1 px-4 bg-white border border-gray-300 rounded-2xl hover:bg-secondary ${
+                interviewType.includes(type.title)
+                  ? "bg-secondary text-white"
+                  : ""
+              }`}
+              onClick={() => AddInterviewType(type.title)}
             >
-              <type.icon className="w-4 h-4" />
-              <span className="text-sm">{type.title}</span>
+              <type.icon className="h-4 w-4" />
+              <span>{type.title}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Generate Button */}
-      <div>
-        <Button className="mt-7 flex justify-end" onClick={goToNext}>
-          Generate Questions <ArrowRight />
+      <div className="mt-7 flex justify-end" onClick={() => GoToNext()}>
+
+        <Button>
+          Generate Question <ArrowRight />
         </Button>
       </div>
     </div>

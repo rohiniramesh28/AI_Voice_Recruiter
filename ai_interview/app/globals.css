@@ -1,11 +1,27 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 24px;
+  color: hsl(13, 100%, 71%);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #06b6d4;
+  }
+}
+
+
 
 @layer base {
   :root {
-    --sidebar: oklch(0.985 0 0);
+    --sidebar: oklch(100% 0.00011 271.152);
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: oklch(0.205 0 0);
     --sidebar-primary-foreground: oklch(0.985 0 0);
@@ -69,13 +85,13 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(90.67% 0.0001 271.152);
+  --background: oklch(85.142% 0.0001 271.152);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(44.72% 0.17382 259.066);
+  --primary: oklch(27.02% 0.15261 290.366);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);

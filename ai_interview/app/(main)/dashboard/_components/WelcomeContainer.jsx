@@ -8,7 +8,10 @@ function WelcomeContainer() {
   const { user } = useUser();
 
   return (
-    <div className="bg-white p-5 rounded-xl flex justify-between items-center">
+   <div className="bg-[#D0F0FD] p-5 rounded-xl flex justify-between items-center mt-1">
+
+
+
       <div>
         <h2 className="text-lg font-bold">
           Welcome Back, {user?.fullName || user?.firstName || "User"}!
