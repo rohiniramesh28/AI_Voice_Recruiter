@@ -1,0 +1,13 @@
+[33m42b5996[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: Branch: renamed refs/heads/main to refs/heads/main
+[33m42b5996[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{2}: Branch: renamed refs/heads/main to refs/heads/main
+[33m42b5996[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{4}: commit: first commit
+[33ma962414[m HEAD@{5}: commit: Initial commit with interview question generator
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{6}: Branch: renamed refs/heads/main to refs/heads/main
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{8}: Branch: renamed refs/heads/dev to refs/heads/main
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{10}: Branch: renamed refs/heads/main to refs/heads/dev
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{12}: Branch: renamed refs/heads/main to refs/heads/main
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{14}: Branch: renamed refs/heads/main to refs/heads/main
+[33m94aac36[m[33m ([m[1;31morigin/dev[m[33m)[m HEAD@{16}: commit: Initial commit with working OpenRouter API for interview questions
+[33m61d6a63[m HEAD@{17}: Branch: renamed refs/heads/master to refs/heads/main
+[33m61d6a63[m HEAD@{19}: commit: Initial commit
+[33m01cd6e0[m HEAD@{20}: commit (initial): Initial commit or your message
