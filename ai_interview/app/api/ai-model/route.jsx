@@ -1,17 +1,20 @@
-import { QUESTIONS_PROMPT } from "@/services/Constants";
+import { QUESTIONS_PROMPT } from "@/services/constants";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     const { jobPosition, jobDescription, duration, type } = await req.json();
 
+    // Defensive check
+    if (!jobPosition || !jobDescription || !duration || !type) {
+      return NextResponse.json({ error: "Missing input fields" }, { status: 400 });
+    }
+
     const FINAL_PROMPT = QUESTIONS_PROMPT
       .replace("{{jobTitle}}", jobPosition)
       .replace("{{jobDescription}}", jobDescription)
       .replace("{{duration}}", duration)
       .replace("{{type}}", type);
-
-    console.log("🟡 Final Prompt:\n", FINAL_PROMPT);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -21,27 +24,21 @@ export async function POST(req) {
       },
       body: JSON.stringify({
         model: "google/gemini-2.0-flash-exp:free",
-        messages: [
-          {
-            role: "user",
-            content: FINAL_PROMPT,
-          },
-        ],
+        messages: [{ role: "user", content: FINAL_PROMPT }],
       }),
     });
 
     const data = await response.json();
-
-    console.log("🟢 API Response:", JSON.stringify(data, null, 2));
+    console.log("OpenRouter response:", data);
 
     if (!data.choices || !data.choices[0]) {
-      return NextResponse.json({ error: "No response from model." }, { status: 500 });
+      return NextResponse.json({ error: "No output from model" }, { status: 500 });
     }
 
     return NextResponse.json(data.choices[0].message);
 
-  } catch (e) {
-    console.error("🔴 Error generating questions:", e);
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch (err) {
+    console.error("Error generating questions:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
