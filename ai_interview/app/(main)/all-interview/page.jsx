@@ -1,14 +1,14 @@
-"use client";
+"use client"
+import { supabase } from '@/app/components/supabaseClient';
+import { Button } from '@/components/ui/button';
+import { Video } from 'lucide-react';
 
-import { useUser } from "@clerk/nextjs";
-import { supabase } from "@/app/components/supabaseClient";
-import { Button } from "@/components/ui/button";
-import { Video } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import InterviewCard from "./InterviewCard";
-import { toast } from "sonner";
+import InterviewCard from '../dashboard/_components/InterviewCard';
+import { useUser } from '@clerk/nextjs';
 
-function LatestInterviewsList() {
+
+function AllInterview() {
   const { user } = useUser();
   const [interviewList, setInterviewList] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,8 +24,7 @@ function LatestInterviewsList() {
       .select("*")
       .eq("email", email)
       .order("created_at", { ascending: false })
-      .limit(6)
-
+      
     if (error) {
       toast.error("❌ Error fetching interviews.");
       console.error("Supabase error:", error);
@@ -45,9 +44,9 @@ function LatestInterviewsList() {
   return (
     <div className="my-5">
       <div className="flex justify-between items-center">
-        <h2 className="font-bold text-2xl">Previously Created Interviews</h2>
+        <h2 className="font-bold text-2xl "></h2>
         {!loading && (
-          <Button variant="outline" onClick={fetchInterviews}>
+          <Button variant="outline" className="bg-blue-600 text-white hover:bg-blue-700" onClick={fetchInterviews}>
             Refresh
           </Button>
         )}
@@ -60,7 +59,7 @@ function LatestInterviewsList() {
       ) : interviewList.length === 0 ? (
         <div className="p-5 mt-6 flex flex-col items-center gap-4 border rounded-md bg-white">
           <Video className="h-10 w-10 text-primary" />
-          <p className="text-gray-700">You don't have any interviews yet.</p>
+          <p className="text-gray-700"></p>
           <Button onClick={() => (window.location.href = "/interview/create")}>
             Create New Interview
           </Button>
@@ -76,4 +75,4 @@ function LatestInterviewsList() {
   );
 }
 
-export default LatestInterviewsList;
+export default AllInterview

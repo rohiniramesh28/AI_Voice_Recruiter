@@ -14,23 +14,20 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-
 function FormContainer({ onHandleInputChange, GoToNext }) {
   const [interviewType, setInterviewType] = useState([]);
 
   useEffect(() => {
-    if (interviewType) {
-      onHandleInputChange("type", interviewType);
-    }
+    onHandleInputChange("type", interviewType);
   }, [interviewType]);
 
   const AddInterviewType = (type) => {
-    const data = interviewType.includes(type);
-    if (!data) {
+    const exists = interviewType.includes(type);
+    if (!exists) {
       setInterviewType((prev) => [...prev, type]);
     } else {
-      const result = interviewType.filter((item) => item != type);
-      setInterviewType(result);
+      const updated = interviewType.filter((item) => item !== type);
+      setInterviewType(updated);
     }
   };
 
@@ -41,14 +38,14 @@ function FormContainer({ onHandleInputChange, GoToNext }) {
         <Input
           placeholder="e.g. Full Stack Developer"
           className="mt-2"
-          onChange={(event) => onHandleInputChange("job", event.target.value)}
+          onChange={(event) => onHandleInputChange("jobPosition", event.target.value)} // ✅ fixed key
         />
       </div>
 
       <div className="mt-5">
         <h2 className="text-sm font-medium">Job Description</h2>
         <Textarea
-          placeholder="Enter details job description"
+          placeholder="Enter detailed job description"
           className="h-[200px] mt-2"
           onChange={(event) =>
             onHandleInputChange("jobDescription", event.target.value)
@@ -80,10 +77,10 @@ function FormContainer({ onHandleInputChange, GoToNext }) {
           {InterviewType.map((type, index) => (
             <div
               key={index}
-              className={`flex items-center cursor-pointer gap-2 p-1 px-4 bg-white border border-gray-300 rounded-2xl hover:bg-secondary ${
+              className={`flex items-center cursor-pointer gap-2 p-1 px-4 border border-gray-300 rounded-2xl ${
                 interviewType.includes(type.title)
                   ? "bg-secondary text-white"
-                  : ""
+                  : "bg-white"
               }`}
               onClick={() => AddInterviewType(type.title)}
             >
@@ -94,9 +91,8 @@ function FormContainer({ onHandleInputChange, GoToNext }) {
         </div>
       </div>
 
-      <div className="mt-7 flex justify-end" onClick={() => GoToNext()}>
-
-        <Button>
+      <div className="mt-7 flex justify-end">
+        <Button onClick={GoToNext}>
           Generate Question <ArrowRight />
         </Button>
       </div>
