@@ -61,8 +61,9 @@ npm run dev
 - Fork this project, improve it, and send in your pull requests.
 - Let’s build the future of interview preparation together.
 
-Crafted with ❤️ by Rohini R, Sivanesan B 
+Crafted with by Rohini R, Sivanesan B 
 
 ---
+
 
 
